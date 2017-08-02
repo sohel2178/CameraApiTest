@@ -19,6 +19,7 @@ import android.media.ImageReader;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.SystemClock;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Create a File Input Stream
             FileOutputStream fileOutputStream = null;
             try {
-                fileOutputStream = new FileOutputStream(imageFile);
+                fileOutputStream = new FileOutputStream(imageFile.getPath());
                 fileOutputStream.write(bytes);
             }catch (IOException e) {
                 e.printStackTrace();
@@ -386,16 +387,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private File createImageFile() {
-        File file= new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES)+"/"+getString(R.string.app_name)+"/sohel");
+        File file= new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/"+getString(R.string.app_name));
 
         if(!file.exists()){
-            file.mkdir();
+            file.mkdirs();
         }
+
+        File imageFile = new File(file.getAbsoluteFile(), System.currentTimeMillis()+".jpg");
 
         Log.d("JJJJJ",file.getAbsolutePath());
 
-        return file;
+        return imageFile;
 
     }
 
