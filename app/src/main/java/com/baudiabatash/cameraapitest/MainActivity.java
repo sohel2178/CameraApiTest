@@ -386,12 +386,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private File createImageFile() {
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), getString(R.string.app_name));
+        File file= new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES)+"/"+getString(R.string.app_name)+"/sohel");
+
+        if(!file.exists()){
+            file.mkdir();
+        }
 
         Log.d("JJJJJ",file.getAbsolutePath());
 
-        return new File(file.getAbsolutePath(),"sohel.jpg");
+        return file;
+
     }
 
     private void lockFocus(){
